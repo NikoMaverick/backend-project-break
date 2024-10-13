@@ -17,7 +17,8 @@
  - npm i express dotenv mongoose -E
  - Añadir "start": "node --watch index.js" en el "scripts" de package.json
  - Al añadir las dependencias, se creara el archivo package.json que añadiremos en .gitignore
+ - Añadimos npm i method-overrid para que soporte metodos PUT en formularios HTML y lo requerimos en el index.js y tambien la usamos en el index.js
 
-
- # 
+ # Creamos las rutas.
+ 
 
