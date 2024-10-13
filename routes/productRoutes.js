@@ -5,22 +5,26 @@ const router = express.Router();
 const Product = require('../models/Product');
 
 
-
-router.get('/', (req, res) => {
+router.get('/products', async (req, res) => {
     res.json({mensaje: 'Hola Mundo'})
 });
+
+
+
 
 module.exports = router
 
 
-/* 
+/*
 
-router.post('/create', async (req, res) => {
+
+
+
+router.post('/dashboard', async (req, res) => {
     try {
-        const newProduct = new TextTrackList(require.body);
-    } catch (error) {
-        
+        const newProduct = await Product.create
+    } catch (err) {
+        console.log('Error al crear', err)
     }
 });
-
 */
