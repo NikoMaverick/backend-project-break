@@ -112,7 +112,8 @@ const showNewProduct = async (req, res) => {
     try {
         const html = baseHtml + getNavBar() + `
                 <h2>Crear Producto</h2>
-                <form class="formProduct" id="formProduct" action = "/dashboard" method="POST" enctype="multipart/form-data">
+                <div class="formProduct" id="formProduct">
+                <form action = "/dashboard" method="POST" enctype="multipart/form-data">
 
                     <label for="name">Producto</label>
                     <input type="text" id="name" name="name" required>
@@ -146,6 +147,7 @@ const showNewProduct = async (req, res) => {
 
                     <label for="price">Precio</label>
                     <input type="number" id="price" name="price" required>
+                    </div>
 
                     <button type="submit">Crear producto</button>
                 </form>
@@ -175,7 +177,7 @@ const createProduct = async (req, res) => {
             size,
             price
         });
-        res.redirect('/dashboard')
+        res.redirect(`/dashboard/${products}`);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error creating the product" });
@@ -226,7 +228,32 @@ const showEditProduct = async (req, res) => {
     };
 };
 
-
+const updateProduct = async (req, res) => {
+    try {
+        const { name, description, image, category, size, price } = req.body;
+        if (!name || !description || !image || !category || !size || !price) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+        const updatedProduct = await Product.findByIdAndUpdate(
+            req.params.productId,
+            { 
+                name, 
+                description, 
+                image, 
+                category, 
+                size, 
+                price }, 
+            { new: true } // Devuelvemos el producto actualizado
+        );
+        if (!updatedProduct) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+        res.status(200).json({ message: "Product updated successfully", product: updatedProduct });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating product" });
+    };
+};
 
 
 module.exports = {

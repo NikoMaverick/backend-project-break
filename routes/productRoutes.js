@@ -27,6 +27,8 @@ router.post('/dashboard', productController.createProduct);
 // 7. GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 router.get('/dashboard/:productId/edit', productController.showEditProduct);
 
+// 8. PUT /dashboard/:productId: Actualiza un producto.
+router.put('/dashboard/:productId', productController.updateProduct)
 
 /*
 // 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
@@ -222,6 +224,7 @@ router.get('/dashboard/:productId/edit', async (req, res) => {
     }
 });*/
 
+/*
 // 8. PUT /dashboard/:productId: Actualiza un producto.
 router.put('/dashboard/:productId', async (req, res) => {
     try {
@@ -250,7 +253,7 @@ router.put('/dashboard/:productId', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Error updating product" });
     }
-});
+});*/
 
 
 // 9. DELETE /dashboard/:productId/delete: Elimina un producto.
