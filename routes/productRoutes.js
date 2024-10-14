@@ -8,11 +8,24 @@ const productController = require('../controllers/productController')
 
 // 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get('/products', productController.showProducts);
+
 // 3. GET /products/:productId: Devuelve el detalle de un producto.
 router.get('/products/:productId', productController.showProductById);
+
 // 2. GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
 router.get('/dashboard', productController.showProducts);
 
+// 4. GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
+router.get('/dashboard/new', productController.showNewProduct);
+
+// 5. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
+router.get('/dashboard/:productId', productController.showProductById)
+
+// 6. POST /dashboard: Crea un nuevo producto.
+router.post('/dashboard', productController.createProduct);
+
+// 7. GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
+router.get('/dashboard/:productId/edit', productController.showEditProduct);
 
 
 /*
@@ -54,7 +67,7 @@ router.get('/products/:productId', async(req, res) => {
     };
 })*/
 
-
+/*
 // 4. GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 router.get('/dashboard/new', async (req, res) => {
     try {
@@ -103,11 +116,11 @@ router.get('/dashboard/new', async (req, res) => {
         res.send(formProductHtml);
     } catch (error) {
         console.error(error);
-        res.status(500).json({message: "No se puede acceder al formulario"})
+        res.status(500).json({message: "The form cannot be accessed"});
     }
-});
+});*/
 
-
+/*
 // 5. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
 router.get('/dashboard/:productId', async(req, res) => {
     console.log('Estoy')
@@ -121,12 +134,12 @@ router.get('/dashboard/:productId', async(req, res) => {
         console.error(error);
         res.status(500).json({message: "Error accessing product."});
     };
-})
+})*/
 
 
 
 
-
+/*
 // 6. POST /dashboard: Crea un nuevo producto.
 router.post('/dashboard', async (req, res) => {
     try {
@@ -148,9 +161,9 @@ router.post('/dashboard', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Error al crear el producto" });
     }
-});
+});*/
 
-
+/*
 // 7. GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto.
 router.get('/dashboard/:productId/edit', async (req, res) => {
     try {
@@ -207,7 +220,7 @@ router.get('/dashboard/:productId/edit', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Error while accessing the product" });
     }
-});
+});*/
 
 // 8. PUT /dashboard/:productId: Actualiza un producto.
 router.put('/dashboard/:productId', async (req, res) => {
