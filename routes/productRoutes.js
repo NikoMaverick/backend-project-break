@@ -3,8 +3,19 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const productController = require('../controllers/productController')
 
 
+// 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
+router.get('/products', productController.showProducts);
+// 3. GET /products/:productId: Devuelve el detalle de un producto.
+router.get('/products/:productId', productController.showProductById);
+// 2. GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
+router.get('/dashboard', productController.showProducts);
+
+
+
+/*
 // 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get("/products", async(req,res) => {
     try {
@@ -14,25 +25,25 @@ router.get("/products", async(req,res) => {
         console.error(error);
         res.status(500).json({ message: "Error accessing products." });
     };
-});
+});*/
 
-
+/*
 // 2. GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
 router.get('/dashboard', async(req, res) => {
     try {
-        const products = await Product.find();
-        res.status(200).josn(products)
+        const products = await Product.find(); 
+        res.status(200).json(products);
     } catch (error) {
         console.error(error);
-        res.status(500).json({message: "Error accessing products"})
+        res.status(500).json({ message: "Error accessing products." });
     };
-});
+});*/
 
-
+/*
 // 3. GET /products/:productId: Devuelve el detalle de un producto.
 router.get('/products/:productId', async(req, res) => {
     try {
-        const product = await Product.findById(req.params.productID);
+        const product = await Product.findById(req.params.productId);
         if(!product){
             return res.status(404).json({ message: "Product not found" });
         }
@@ -41,24 +52,10 @@ router.get('/products/:productId', async(req, res) => {
         console.error(error);
         res.status(500).json({message: "Error accessing product."});
     };
-})
-
-// 4. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
-router.get('/dashboard/:productId', async(req, res) => {
-    try {
-        const product = await Product.findById(req.params.productID);
-        if(!product){
-            return res.status(404).json({ message: "Product not found" });
-        }
-        res.status(200).json(product);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({message: "Error accessing product."});
-    };
-})
+})*/
 
 
-// 5. GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
+// 4. GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 router.get('/dashboard/new', async (req, res) => {
     try {
         const formProductHtml = `
@@ -106,9 +103,28 @@ router.get('/dashboard/new', async (req, res) => {
         res.send(formProductHtml);
     } catch (error) {
         console.error(error);
-        res.status(500).json({message: "The form cannot be accessed"})
+        res.status(500).json({message: "No se puede acceder al formulario"})
     }
 });
+
+
+// 5. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
+router.get('/dashboard/:productId', async(req, res) => {
+    console.log('Estoy')
+    try {
+        const product = await Product.findById(req.params.productId);
+        if(!product){
+            return res.status(404).json({ message: "Product not found" });
+        }
+        res.status(200).json(product);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: "Error accessing product."});
+    };
+})
+
+
+
 
 
 // 6. POST /dashboard: Crea un nuevo producto.
@@ -117,9 +133,9 @@ router.post('/dashboard', async (req, res) => {
         const { name, description, image, category, size, price } = req.body;
 
         if (!name || !description || !category || !size || !price) {
-            return res.status(400).json({ message: "Todos los campos son obligatorios" });
+            return res.status(400).json({ message: "All fields are required" });
         }
-        const newProduct = new Product({
+        const newProduct = await Product.create({
             name,
             description,
             image,
@@ -127,8 +143,7 @@ router.post('/dashboard', async (req, res) => {
             size,
             price
         });
-        await newProduct.save();
-        res.status(201).json({ message: "Product created successfully", product: newProduct });
+        res.status(201).json(newProduct);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al crear el producto" });
@@ -228,15 +243,10 @@ router.put('/dashboard/:productId', async (req, res) => {
 // 9. DELETE /dashboard/:productId/delete: Elimina un producto.
 router.delete('/dashboard/:productId/delete', async (req, res) => {
     try {
-        // Buscamos y eliminamos el producto por su ID
         const deletedProduct = await Product.findByIdAndDelete(req.params.productId);
-
-        // Si el producto no existe, devolvemos un 404
         if (!deletedProduct) {
             return res.status(404).json({ message: "Product not found" });
         }
-
-        // Respuesta exitosa si el producto fue eliminado
         res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
         console.error(error);
