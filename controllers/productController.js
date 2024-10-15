@@ -55,17 +55,14 @@ function getProductCards(products) {
     for (let product of products) {
       html += `
         <div class="product-card">
-            <img src="${product.image}" alt="${product.name}">
-            <h2>${product.name}</h2>
-            <button class="homeBtn" onClick="window.location.href='/products/${product._id}'">Ver</button>
+          <img src="${product.image}" alt="${product.name}">
+          <h2>${product.name}</h2>
+          <button class="homeBtn" onClick="window.location.href='/products/${product._id}'">Ver</button>
         </div>
-        `;
+      `;
     }
     return html;
   }
-
-
-
 
 
   function getProductCard(product) {
@@ -78,7 +75,7 @@ function getProductCards(products) {
           <p>Categoria: ${product.category}</p>
           <p>Talla: ${product.size}</p>
           <p><strong>${product.price}€</strong></p>
-          <button class="homeBtn" onClick="window.location.href='/dashboard/${product._id}'">Ver</button>
+          <button class="homeBtn" onClick="window.location.href='/dashboard/${product._id}/edit'">Editar</button>
           <button class="homeBtn" id="deleteProduct">Borrar</button>
         </div>
         <script>
@@ -152,7 +149,7 @@ const showNewProduct = async (req, res) => {
         const html = baseHtml + getNavBar(isDashboard) + `
                 <h2>Crear Producto</h2>
                 <div class="formProduct" id="formProduct">
-                <form action="/dashboard" method="POST" enctype="multipart/form-data">
+                <form action="/dashboard" method="POST">
 
                     <label for="name">Producto</label>
                     <input type="text" id="name" name="name" required>
@@ -238,7 +235,7 @@ const showEditProduct = async (req, res) => {
         // En el HTML añadimos el value para que los datos aparezcan rellenados con los datos para actualizar
         const html = baseHtml + getNavBar() + `
                 <h2>Editar Producto</h2>
-                <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT" enctype="multipart/form-data">
+                <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT">
 
                     <label for="name">Producto</label>
                     <input type="text" id="name" name="name" value="${product.name}" required>
@@ -326,7 +323,7 @@ const updateProduct = async (req, res) => {
                 category, 
                 size, 
                 price }, 
-            { new: true }
+            { new: true } // Devuelvemos el producto actualizado
         );
         if (!updatedProduct) {
             return res.status(404).json({ message: "Product not found" });
