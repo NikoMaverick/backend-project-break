@@ -20,13 +20,13 @@ function getNavBar(isDashboard) {
         <nav class="navProduct" id="navProduct">
             <ul class="navProduct" id="navProduct">
                 <li><a href="/dashboard">Home</a></li>
-                <li><a href="">Chaquetas</a></li>
-                <li><a href="">Camisetas</a></li>
-                <li><a href="">Gorras</a></li>
-                <li><a href="">Gafas</a></li>
-                <li><a href="">Cascos</a></li>
+                <li><a href="/dashboard/chaqueta">Chaquetas</a></li>
+                <li><a href="/dashboard/camiseta">Camisetas</a></li>
+                <li><a href="/dashboard/gorra">Gorras</a></li>
+                <li><a href="/dashboard/gafas">Gafas</a></li>
+                <li><a href="/dashboard/casco">Cascos</a></li>
                 <li><a href="/dashboard/new">Nuevo producto</a></li>
-                <li><a href="">Cerrar Sesion</a></li>
+                <li><a href="/products">Cerrar Sesion</a></li>
             </ul>
         </nav>
     </header>
@@ -38,12 +38,12 @@ else {
         <nav class="navProduct" id="navProduct">
             <ul class="navProduct" id="navProduct">
                 <li><a href="/products">Home</a></li>
-                <li><a href="products/Chaquetas">Chaquetas</a></li>
-                <li><a href="product/Camiseta">Camisetas</a></li>
-                <li><a href="product">Gorras</a></li>
-                <li><a href="product">Gafas</a></li>
-                <li><a href="product">Casco</a></li>
-                <li><a href="product">Iniciar Sesión</a></li>
+                <li><a href="/products/chaqueta">Chaquetas</a></li>
+                <li><a href="/products/camiseta">Camisetas</a></li>
+                <li><a href="/products/gorra">Gorras</a></li>
+                <li><a href="/products/gafas">Gafas</a></li>
+                <li><a href="/products/casco">Casco</a></li>
+                <li><a href="/dashboard/">Iniciar Sesión</a></li>
             </ul>
         </nav> 
     </header> 
@@ -85,25 +85,22 @@ function getProductCards(products) {
                 fetch("/dashboard/${product._id}/delete", {
                 method: 'DELETE', // Método DELETE
                 headers: {
-                    'Content-Type': 'application/json' // Define el tipo de contenido si es necesario
+                    'Content-Type': 'application/json' 
                 }
             })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la red');
                 }
-                return response.json(); // Procesa la respuesta JSON
+                return response.json(); 
             })
             .then(data => {
                 console.log('Éxito:', data);
                 alert('Producto eliminado correctamente');
-
-                // Redirigir o actualizar la interfaz después de eliminar
-                window.location.href = '/dashboard'; // Cambia esta ruta según sea necesario
+                window.location.href = '/dashboard'; 
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('Hubo un problema al eliminar el producto.');
             });
            });
            });
@@ -232,7 +229,6 @@ const showEditProduct = async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
-        // En el HTML añadimos el value para que los datos aparezcan rellenados con los datos para actualizar
         const html = baseHtml + getNavBar() + `
                 <h2>Editar Producto</h2>
                 <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT">
@@ -275,17 +271,15 @@ const showEditProduct = async (req, res) => {
                     fetch("/dashboard/${product._id}", {
                         method: 'PUT', // Cambia esto a PUT
                         headers: {
-                            'Content-Type': 'application/json', // Tipo de contenido
+                            'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(data), // Convertir a JSON
-                       
-
+                        body: JSON.stringify(data),
                     })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Error en la respuesta de la red');
                         }
-                        return response.json(); // Suponiendo que la respuesta es JSON
+                        return response.json(); 
                     })
                     .then(data => {
                         console.log('Éxito:', data);
@@ -293,7 +287,6 @@ const showEditProduct = async (req, res) => {
                     })
                     .catch((error) => {
                         console.error('Error:', error);
-                        alert('Error al enviar los datos');
                     });
                 });
         </script>
@@ -323,7 +316,7 @@ const updateProduct = async (req, res) => {
                 category, 
                 size, 
                 price }, 
-            { new: true } // Devuelvemos el producto actualizado
+            { new: true } 
         );
         if (!updatedProduct) {
             return res.status(404).json({ message: "Product not found" });

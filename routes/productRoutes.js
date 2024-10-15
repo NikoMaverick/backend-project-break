@@ -9,6 +9,9 @@ const productController = require('../controllers/productController')
 // 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get('/products', productController.showProducts);
 
+// 11. GET Devuelve todas las categorias de products
+router.get('/products/category/:category', productController.showProductsByCategory);
+
 // 3. GET /products/:productId: Devuelve el detalle de un producto.
 router.get('/products/:productId', productController.showProductById);
 
@@ -17,6 +20,9 @@ router.get('/dashboard', productController.showProducts);
 
 // 4. GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo.
 router.get('/dashboard/new', productController.showNewProduct);
+
+// 10. GET Devuelve todas las categorias del dashboard
+router.get('/dashboard/:category', productController.showProductsByCategory);
 
 // 5. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard.
 router.get('/dashboard/:productId', productController.showProductById)
@@ -33,8 +39,8 @@ router.put('/dashboard/:productId', productController.updateProduct)
 // 9. DELETE /dashboard/:productId/delete: Elimina un producto.
 router.delete('/dashboard/:productId/delete', productController.deleteProduct)
 
-router.get('/products/:category', productController.showProductsByCategory);
 
+module.exports = router
 /*
 // 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get("/products", async(req,res) => {
@@ -274,7 +280,5 @@ router.delete('/dashboard/:productId/delete', async (req, res) => {
         res.status(500).json({ message: "Error deleting product" });
     }
 });*/
-
-module.exports = router
 
 
