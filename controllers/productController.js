@@ -11,39 +11,42 @@ const baseHtml = `
     <title>Top Gun Store</title>
 </head>
 <body>
-    <header>
-        <button class="homeBtn" onClick="window.location.href='/dashboard'">Home</button>
-        <button class="session" type="submit">Cerrar sesión</button>
-    </header>
 `
 
 function getNavBar(isDashboard) {
     if (isDashboard) {
         return `
-    <nav class="navProduct" id="navProduct">
-        <ul class="navProduct" id="navProduct">
-            <li><a href="/dashboard">Productos</a></li>
-            <li><a href="">Chaquetas</a></li>
-            <li><a href="">Camisetas</a></li>
-            <li><a href="">Gorras</a></li>
-            <li><a href="">Accesorios</a></li>
-            <li><a href="">Nuevo producto</a></li>
-            <li><a href="">Loging</a></li>
-        </ul>
-    </nav>  
+    <header>
+        <nav class="navProduct" id="navProduct">
+            <ul class="navProduct" id="navProduct">
+                <li><a href="/dashboard">Home</a></li>
+                <li><a href="">Chaquetas</a></li>
+                <li><a href="">Camisetas</a></li>
+                <li><a href="">Gorras</a></li>
+                <li><a href="">Gafas</a></li>
+                <li><a href="">Cascos</a></li>
+                <li><a href="/dashboard/new">Nuevo producto</a></li>
+                <li><a href="">Cerrar Sesion</a></li>
+            </ul>
+        </nav>
+    </header>
 `
 } 
 else {
     return `
-    <nav class="navProduct" id="navProduct">
-        <ul class="navProduct" id="navProduct">
-            <li><a href="/products">Productos</a></li>
-            <li><a href="">Chaquetas</a></li>
-            <li><a href="">Camisetas</a></li>
-            <li><a href="">Gorras</a></li>
-            <li><a href="">Accesorios</a></li>
-        </ul>
-    </nav>  
+    <header>
+        <nav class="navProduct" id="navProduct">
+            <ul class="navProduct" id="navProduct">
+                <li><a href="/products">Home</a></li>
+                <li><a href="products/Chaquetas">Chaquetas</a></li>
+                <li><a href="product/Camiseta">Camisetas</a></li>
+                <li><a href="product">Gorras</a></li>
+                <li><a href="product">Gafas</a></li>
+                <li><a href="product">Casco</a></li>
+                <li><a href="product">Iniciar Sesión</a></li>
+            </ul>
+        </nav> 
+    </header> 
 `}
 }
 
@@ -52,18 +55,21 @@ function getProductCards(products) {
     for (let product of products) {
       html += `
         <div class="product-card">
-          <img src="${product.image}" alt="${product.name}">
-          <h2>${product.name}</h2>
-          <a href="/products/${product._id}">Ver producto</a>
+            <img src="${product.image}" alt="${product.name}">
+            <h2>${product.name}</h2>
+            <button class="homeBtn" onClick="window.location.href='/products/${product._id}'">Ver</button>
         </div>
-        </section>
-      `;
+        `;
     }
     return html;
   }
 
+
+
+
+
   function getProductCard(product) {
-    let html = '<section class="productCard id"productCard">';
+    let html = '<section class="productCard" id="productCard">';
       html += `
         <div class="product-card">
           <img src="${product.image}" alt="${product.name}">
@@ -72,8 +78,40 @@ function getProductCards(products) {
           <p>Categoria: ${product.category}</p>
           <p>Talla: ${product.size}</p>
           <p><strong>${product.price}€</strong></p>
+          <button class="homeBtn" onClick="window.location.href='/dashboard/${product._id}'">Ver</button>
+          <button class="homeBtn" id="deleteProduct">Borrar</button>
         </div>
-        </section>
+        <script>
+           document.addEventListener('DOMContentLoaded', function() {
+           document.getElementById("deleteProduct").addEventListener('click', function(){
+                console.log("estoy")
+                fetch("/dashboard/${product._id}/delete", {
+                method: 'DELETE', // Método DELETE
+                headers: {
+                    'Content-Type': 'application/json' // Define el tipo de contenido si es necesario
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la red');
+                }
+                return response.json(); // Procesa la respuesta JSON
+            })
+            .then(data => {
+                console.log('Éxito:', data);
+                alert('Producto eliminado correctamente');
+
+                // Redirigir o actualizar la interfaz después de eliminar
+                window.location.href = '/dashboard'; // Cambia esta ruta según sea necesario
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Hubo un problema al eliminar el producto.');
+            });
+           });
+           });
+        </script>
+        
       `;
     
     return html;
@@ -84,7 +122,7 @@ const showProducts = async (req, res) => {
         const products = await Product.find(); 
         const productCards = getProductCards(products);
         const isDashboard = req.url.includes('dashboard');
-        const html = baseHtml + getNavBar(isDashboard) + productCards + '</body></html>';
+        const html = baseHtml + getNavBar(isDashboard) + productCards + '</section></body></html>';
         res.send(html);
     } catch (error) {
         console.error(error);
@@ -99,7 +137,7 @@ const showProductById = async (req, res) => {
             return res.status(400).json({ messenge: "Product not found" })
         }
         const isDashboard = req.url.includes('dashboard');
-        const html = baseHtml + getNavBar(isDashboard) + getProductCard(product) + '</body></html>';
+        const html = baseHtml + getNavBar(isDashboard) + getProductCard(product) + '</section></body></html>';
         res.send(html);
     } catch (error) {
         console.error(error);
@@ -110,10 +148,11 @@ const showProductById = async (req, res) => {
 
 const showNewProduct = async (req, res) => {
     try {
-        const html = baseHtml + getNavBar() + `
+        const isDashboard = req.url.includes('dashboard');
+        const html = baseHtml + getNavBar(isDashboard) + `
                 <h2>Crear Producto</h2>
                 <div class="formProduct" id="formProduct">
-                <form action = "/dashboard" method="POST" enctype="multipart/form-data">
+                <form action="/dashboard" method="POST" enctype="multipart/form-data">
 
                     <label for="name">Producto</label>
                     <input type="text" id="name" name="name" required>
@@ -122,15 +161,14 @@ const showNewProduct = async (req, res) => {
                     <textarea id="description" name="description" required></textarea>
 
                     <label for="category">Categoría</label>
-                    <select name="size" class="categoryProduct" id="categoryProduct">
+                    <select name="category" class="categoryProduct" id="categoryProduct">
                         <option value="" disabled selected>Producto</option>
-                        <option value="Jacket">Chaqueta</option>
-                        <option value="T-shirt">Camiseta</option>
-                        <option value="Cap">Gorra</option>
-                        <option value="Accessory">Accesorio</option>
+                        <option value="Chaqueta">Chaqueta</option>
+                        <option value="Camiseta">Camiseta</option>
+                        <option value="Gorra">Gorra</option>
+                        <option value="Gafas">Gafas</option>
+                        <option value="Casco">Casco</option>
                     </select>
-                    <input type="text" id="category" name="category" required>
-
                     <label for="image">Imagen</label>
                     <input type="file" id="image" name="image">
 
@@ -147,9 +185,10 @@ const showNewProduct = async (req, res) => {
 
                     <label for="price">Precio</label>
                     <input type="number" id="price" name="price" required>
-                    </div>
 
                     <button type="submit">Crear producto</button>
+                </div>
+
                 </form>
             </main>
         </body>
@@ -162,14 +201,16 @@ const showNewProduct = async (req, res) => {
     }
     
 };
-// Repasar, no entra
+
+
 const createProduct = async (req, res) => {
+
     try {
-        const { name, description, image, category, size, price } = req.body;
+        const { name, description, image, category, size, price } = req.body
         if (!name || !description|| !image || !category || !size || !price) {
             return res.status(400).json({ message: "All fields are required" });
         }
-        const newProduct = await Product.create({
+        const product = await Product.create({
             name,
             description,
             image,
@@ -177,12 +218,15 @@ const createProduct = async (req, res) => {
             size,
             price
         });
-        res.redirect(`/dashboard/${products}`);
+        res.redirect(`/dashboard/${product._id}`);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error creating the product" });
     };
 };
+
+
+
 
 
 const showEditProduct = async (req, res) => {
@@ -194,7 +238,7 @@ const showEditProduct = async (req, res) => {
         // En el HTML añadimos el value para que los datos aparezcan rellenados con los datos para actualizar
         const html = baseHtml + getNavBar() + `
                 <h2>Editar Producto</h2>
-                <form action="/dashboard/${product._id}?_method=PUT" method="POST" enctype="multipart/form-data">
+                <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT" enctype="multipart/form-data">
 
                     <label for="name">Producto</label>
                     <input type="text" id="name" name="name" value="${product.name}" required>
@@ -203,7 +247,7 @@ const showEditProduct = async (req, res) => {
                     <textarea id="description" name="description" required>${product.description}</textarea>
 
                     <label for="image">Imagen</label>
-                    <input type="file" id="image" name="image" value="${product.image} required">
+                    <input type="file" id="image" name="image" value="${product.image}">
 
                     <label for="category">Categoría</label>
                     <input type="text" id="category" name="category" value="${product.category}" required>
@@ -219,6 +263,43 @@ const showEditProduct = async (req, res) => {
                 </form>
             </main>
         </body>
+        <script>
+            document.getElementById('formEditProduct').addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    const formData = new FormData(this);
+
+                    
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+
+                    fetch("/dashboard/${product._id}", {
+                        method: 'PUT', // Cambia esto a PUT
+                        headers: {
+                            'Content-Type': 'application/json', // Tipo de contenido
+                        },
+                        body: JSON.stringify(data), // Convertir a JSON
+                       
+
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Error en la respuesta de la red');
+                        }
+                        return response.json(); // Suponiendo que la respuesta es JSON
+                    })
+                    .then(data => {
+                        console.log('Éxito:', data);
+                        window.location.href="/dashboard/${product._id}"
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert('Error al enviar los datos');
+                    });
+                });
+        </script>
         </html>
         `;
         res.send(html);
@@ -230,8 +311,10 @@ const showEditProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
-        const { name, description, image, category, size, price } = req.body;
-        if (!name || !description || !image || !category || !size || !price) {
+        let { name, description, image, category, size, price } = req.body;
+        console.log(req)
+        image = '';
+        if (!name || !description || !category || !size || !price) {
             return res.status(400).json({ message: "All fields are required" });
         }
         const updatedProduct = await Product.findByIdAndUpdate(
@@ -243,7 +326,7 @@ const updateProduct = async (req, res) => {
                 category, 
                 size, 
                 price }, 
-            { new: true } // Devuelvemos el producto actualizado
+            { new: true }
         );
         if (!updatedProduct) {
             return res.status(404).json({ message: "Product not found" });
@@ -256,11 +339,41 @@ const updateProduct = async (req, res) => {
 };
 
 
+const deleteProduct = async (req, res) => {
+    try {
+        const deletedProduct = await Product.findByIdAndDelete(req.params.productId);
+        if (!deletedProduct) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+        res.status(200).json({ message: "Product deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error deleting product" });
+    }
+}
+
+
+const showProductsByCategory = async (req, res) => {
+    try {
+        const products = await Product.find({category: req.params.category}); 
+        const productCards = getProductCards(products);
+        const isDashboard = req.url.includes('dashboard');
+        const html = baseHtml + getNavBar(isDashboard) + productCards + '</section></body></html>';
+        res.send(html);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error accessing products." });
+    };
+}
+
+
 module.exports = {
     showProducts,
     showProductById,
     showNewProduct,
     createProduct,
     showEditProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct,
+    showProductsByCategory
 } 

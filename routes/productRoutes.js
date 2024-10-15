@@ -30,6 +30,11 @@ router.get('/dashboard/:productId/edit', productController.showEditProduct);
 // 8. PUT /dashboard/:productId: Actualiza un producto.
 router.put('/dashboard/:productId', productController.updateProduct)
 
+// 9. DELETE /dashboard/:productId/delete: Elimina un producto.
+router.delete('/dashboard/:productId/delete', productController.deleteProduct)
+
+router.get('/products/:category', productController.showProductsByCategory);
+
 /*
 // 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle.
 router.get("/products", async(req,res) => {
@@ -255,7 +260,7 @@ router.put('/dashboard/:productId', async (req, res) => {
     }
 });*/
 
-
+/*
 // 9. DELETE /dashboard/:productId/delete: Elimina un producto.
 router.delete('/dashboard/:productId/delete', async (req, res) => {
     try {
@@ -268,7 +273,7 @@ router.delete('/dashboard/:productId/delete', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: "Error deleting product" });
     }
-});
+});*/
 
 module.exports = router
 
