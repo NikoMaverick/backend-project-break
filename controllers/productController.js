@@ -55,7 +55,7 @@ function getProductCards(products) {
     for (let product of products) {
       html += `
         <div class="product-card">
-          <img src="${product.image}" alt="${product.name}">
+          <img src="../public/assets/${product.image}" alt="${product.name}">
           <h2>${product.name}</h2>
           <button class="homeBtn" onClick="window.location.href='/products/${product._id}'">Ver</button>
         </div>
@@ -69,7 +69,7 @@ function getProductCards(products) {
     let html = '<section class="productCard" id="productCard">';
       html += `
         <div class="product-card">
-          <img src="${product.image}" alt="${product.name}">
+          <img src="../public/assets/${product.image}" alt="${product.name}">
           <h2>${product.name}</h2>
           <p>${product.description}</p>
           <p>Categoria: ${product.category}</p>
