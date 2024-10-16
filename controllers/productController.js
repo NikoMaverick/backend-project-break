@@ -157,11 +157,11 @@ const showNewProduct = async (req, res) => {
                     <label for="category">Categoría</label>
                     <select name="category" class="categoryProduct" id="categoryProduct">
                         <option value="" disabled selected>Producto</option>
-                        <option value="Chaqueta">Chaqueta</option>
-                        <option value="Camiseta">Camiseta</option>
-                        <option value="Gorra">Gorra</option>
-                        <option value="Gafas">Gafas</option>
-                        <option value="Casco">Casco</option>
+                        <option value="chaqueta">Chaqueta</option>
+                        <option value="camiseta">Camiseta</option>
+                        <option value="corra">Gorra</option>
+                        <option value="gafas">Gafas</option>
+                        <option value="casco">Casco</option>
                     </select>
                     <label for="image">Imagen</label>
                     <input type="file" id="image" name="image">
