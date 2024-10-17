@@ -16,15 +16,15 @@ const baseHtml = `
 function getNavBar(isDashboard) {
     if (isDashboard) {
         return `
-    <header>
-        <nav class="navProduct" id="navProduct">
+    <header class="headerTop">
+        <nav class="nav-Product" id="nav-Product">
             <ul class="navProduct" id="navProduct">
                 <li><a href="/dashboard">Home</a></li>
-                <li><a href="/dashboard/chaqueta">Chaquetas</a></li>
-                <li><a href="/dashboard/camiseta">Camisetas</a></li>
-                <li><a href="/dashboard/gorra">Gorras</a></li>
-                <li><a href="/dashboard/gafas">Gafas</a></li>
-                <li><a href="/dashboard/casco">Cascos</a></li>
+                <li><a href="/dashboard/category/chaqueta">Chaquetas</a></li>
+                <li><a href="/dashboard/category/camiseta">Camisetas</a></li>
+                <li><a href="/dashboard/category/gorra">Gorras</a></li>
+                <li><a href="/dashboard/category/gafas">Gafas</a></li>
+                <li><a href="/dashboard/category/casco">Cascos</a></li>
                 <li><a href="/dashboard/new">Nuevo producto</a></li>
                 <li><a href="/products">Cerrar Sesion</a></li>
             </ul>
@@ -34,15 +34,15 @@ function getNavBar(isDashboard) {
 } 
 else {
     return `
-    <header>
-        <nav class="navProduct" id="navProduct">
+    <header class="headerTop">
+        <nav class="nav-Product" id="nav-Product">
             <ul class="navProduct" id="navProduct">
                 <li><a href="/products">Home</a></li>
-                <li><a href="/products/chaqueta">Chaquetas</a></li>
-                <li><a href="/products/camiseta">Camisetas</a></li>
-                <li><a href="/products/gorra">Gorras</a></li>
-                <li><a href="/products/gafas">Gafas</a></li>
-                <li><a href="/products/casco">Casco</a></li>
+                <li><a href="/products/category/chaqueta">Chaquetas</a></li>
+                <li><a href="/products/category/camiseta">Camisetas</a></li>
+                <li><a href="/products/category/gorra">Gorras</a></li>
+                <li><a href="/products/category/gafas">Gafas</a></li>
+                <li><a href="/products/category/casco">Casco</a></li>
                 <li><a href="/dashboard/">Iniciar Sesión</a></li>
             </ul>
         </nav> 
