@@ -265,7 +265,7 @@ const showEditProduct = async (req, res) => {
                 <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT">
 
                     <div>
-                            <h2>Crear Producto</h2>
+                            <h2>EDITAR PRODUCTO</h2>
                         </div>
 
                     <div>
@@ -297,7 +297,6 @@ const showEditProduct = async (req, res) => {
                             <option value="casco">Casco</option>
                         </select>
                     </div>
-                    
                     
 
                     <div>
@@ -347,7 +346,7 @@ const showEditProduct = async (req, res) => {
                     })
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Error en la respuesta de la red');
+                            throw new Error('Error en la red');
                         }
                         return response.json(); 
                     })
@@ -425,6 +424,7 @@ const showProductsByCategory = async (req, res) => {
         res.status(500).json({ message: "Error accessing products." });
     };
 }
+
 
 
 module.exports = {
