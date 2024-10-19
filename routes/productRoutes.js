@@ -5,7 +5,6 @@ const router = express.Router();
 const Product = require('../models/Product');
 const productController = require('../controllers/productController')
 
-
 router.get('/products', productController.showProducts); // 1.
 router.get('/products/:productId', productController.showProductById); // 2.
 

@@ -11,6 +11,7 @@ const baseHtml = `
     <title>Top Gun Store</title>
 </head>
 <body>
+
 `
 
 function getNavBar(isDashboard) {
@@ -30,6 +31,7 @@ function getNavBar(isDashboard) {
             </ul>
         </nav>
     </header>
+    <main>
 `
 } 
 else {
@@ -42,11 +44,12 @@ else {
                 <li><a href="/products/category/camiseta">Camisetas</a></li>
                 <li><a href="/products/category/gorra">Gorras</a></li>
                 <li><a href="/products/category/gafas">Gafas</a></li>
-                <li><a href="/products/category/casco">Casco</a></li>
+                <li><a href="/products/category/casco">Cascos</a></li>
                 <li><a href="/dashboard/">Iniciar Sesión</a></li>
             </ul>
         </nav> 
     </header> 
+    <main>
 `}
 }
 
@@ -79,32 +82,35 @@ function getProductCards(products) {
           <button class="homeBtn" id="deleteProduct">Borrar</button>
         </div>
         <script>
-           document.addEventListener('DOMContentLoaded', function() {
-           document.getElementById("deleteProduct").addEventListener('click', function(){
-                console.log("estoy")
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById("deleteProduct").addEventListener('click', function() {
+            if(confirm("¿Estás seguro de que deseas eliminar este producto?")) {
                 fetch("/dashboard/${product._id}/delete", {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json' 
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta de la red');
-                }
-                return response.json(); 
-            })
-            .then(data => {
-                console.log('Éxito:', data);
-                alert('Producto eliminado correctamente');
-                window.location.href = '/dashboard'; 
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-           });
-           });
-        </script>
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json' 
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la red');
+                    }
+                    return response.json(); 
+                })
+                .then(data => {
+                    console.log('Éxito:', data);
+                    alert('Producto eliminado correctamente');
+                    window.location.href = '/dashboard'; 
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            } else {
+                console.log('Eliminación cancelada por el usuario');
+            }
+        });
+    });
+</script>
         
       `;
     
@@ -144,46 +150,72 @@ const showNewProduct = async (req, res) => {
     try {
         const isDashboard = req.url.includes('dashboard');
         const html = baseHtml + getNavBar(isDashboard) + `
-            <main>
-                <h2>Crear Producto</h2>
-                <div class="form-Product" id="form-Product">
-                    <form class="formProduct" id="formProduct" action="/dashboard" method="POST">
+                
+                <div class="formProduct" id="formProduct">
+                    <form action="/dashboard" method="POST">
 
-                        <label for="name">Producto</label>
-                        <input type="text" id="name" name="name" required>
+                        <div>
+                            <h2>Crear Producto</h2>
+                        </div>
+                        
 
-                        <label for="description">Descripción</label>
-                        <textarea id="description" name="description" required></textarea>
+                        <div>
+                            <label for="name">Producto</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
 
-                        <label for="category">Categoría</label>
-                        <select name="category" class="categoryProduct" id="categoryProduct">
-                            <option value="" disabled selected>Producto</option>
-                            <option value="chaqueta">Chaqueta</option>
-                            <option value="camiseta">Camiseta</option>
-                            <option value="gorra">Gorra</option>
-                            <option value="gafas">Gafas</option>
-                            <option value="casco">Casco</option>
-                        </select>
-                        <label for="image">Imagen</label>
-                        <input type="file" id="image" name="image">
+                        <div>
+                            <label for="description">Descripción</label>
+                            <textarea id="description" name="description" required></textarea>
+                        </div>
+                        
 
-                        <label for="size">Talla</label>
-                        <select name="size" class="sizeProduct" id="sizeProduct">
-                            <option value="" disabled selected>Talla</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                            <option value="XL">XL</option>
-                        </select>
-                    
+                        <div>
+                            <label for="category">Categoría</label>
+                            <select name="category" class="categoryProduct" id="categoryProduct">
+                                <option value="" disabled selected>Producto</option>
+                                <option value="chaqueta">Chaqueta</option>
+                                <option value="camiseta">Camiseta</option>
+                                <option value="gorra">Gorra</option>
+                                <option value="gafas">Gafas</option>
+                                <option value="casco">Casco</option>
+                            </select>
+                        </div>
+                        
 
-                        <label for="price">Precio</label>
-                        <input type="number" id="price" name="price" required>
+                        
+                        <div>
+                            <label for="image">Imagen</label>
+                            <input type="file" id="image" name="image">
+                        </div>    
+                        
 
-                        <button type="submit">Crear producto</button>              
+                        <div>
+                            <label for="size">Talla</label>
+                            <select name="size" class="sizeProduct" id="sizeProduct">
+                                <option value="" disabled selected>Talla</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        
+
+                        <div>
+                            <label for="price">Precio</label>
+                            <input type="number" id="price" name="price" required>
+                        </div>
+                        
+
+                        <div>
+                            <button type="submit">Crear producto</button>
+                        </div>
+            
                     </form>
-                 </div>
+                </div>
             </main>
         </body>
     </html>
@@ -230,33 +262,68 @@ const showEditProduct = async (req, res) => {
             return res.status(404).json({ message: "Product not found" });
         }
         const html = baseHtml + getNavBar() + `
-            <main>
-                <h2>Editar Producto</h2>
-                <div class="form-Product" id="form-Product">
-                    <form class="formProduct" id="formProduct" action="/dashboard/${product._id}" method="PUT">
+                <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT">
 
+                    <div>
+                            <h2>Crear Producto</h2>
+                        </div>
+
+                    <div>
                         <label for="name">Producto</label>
                         <input type="text" id="name" name="name" value="${product.name}" required>
+                    </div>
+                    
 
+                    <div>
                         <label for="description">Descripción</label>
                         <textarea id="description" name="description" required>${product.description}</textarea>
-
-                        <label for="image">Imagen</label>
-                        <input type="file" id="image" name="image" value="${product.image}">
-
-                        <label for="category">Categoría</label>
-                        <input type="text" id="category" name="category" value="${product.category}" required>
-                  
-                        <label for="size">Talla</label>
-                        <input type="text" id="size" name="size" value="${product.size}" required>
-
-                        <label for="price">Precio</label>
-                        <input type="number" id="price" name="price" value="${product.price}" required>
-
-                        <button type="submit">Actualizar producto</button>
+                    </div>
                     
-                    </form>
-                </div>
+
+                    <div>
+                        <label for="image">Imagen</label>
+                        <input type="file" id="image" name="image" value="/public/assets/${product.image}">
+                    </div>
+                    
+
+                    <div>
+                        <label for="category">Categoría</label>
+                        <select name="category" class="categoryProduct" id="categoryProduct">
+                            <option value="" disabled selected>Producto</option>
+                            <option value="chaqueta">Chaqueta</option>
+                            <option value="camiseta">Camiseta</option>
+                            <option value="gorra">Gorra</option>
+                            <option value="gafas">Gafas</option>
+                            <option value="casco">Casco</option>
+                        </select>
+                    </div>
+                    
+                    
+
+                    <div>
+                        <label for="size">Talla</label>
+                        <select name="size" class="sizeProduct" id="sizeProduct">
+                            <option value="" disabled selected>Talla</option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                    </div>
+                    
+                    
+                    <div>
+                        <label for="price">Precio</label>
+                    <input type="number" id="price" name="price" value="${product.price}" required>
+                    </div>
+                    
+
+                    <div>
+                        <button type="submit">Actualizar producto</button>
+                    </div>
+                    
+                </form>
             </main>
         </body>
         <script>
@@ -272,7 +339,7 @@ const showEditProduct = async (req, res) => {
                     });
 
                     fetch("/dashboard/${product._id}", {
-                        method: 'PUT',
+                        method: 'PUT', // Cambia esto a PUT
                         headers: {
                             'Content-Type': 'application/json',
                         },
