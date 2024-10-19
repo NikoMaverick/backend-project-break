@@ -109,11 +109,11 @@ Vamos a crear las rutas CRUD para los productos. Al usar formularios html, las r
  Las rutas deberían tener una estructura similar a esta:
 
 - 1. GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle. ##OK
-- 3. GET /products/:productId: Devuelve el detalle de un producto. ##OK
-- 2. GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo. ##OK
+- 2. GET /products/:productId: Devuelve el detalle de un producto. ##OK
+- 3. GET /dashboard: Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo. ##OK
 - 4. GET /dashboard/new: Devuelve el formulario para subir un artículo nuevo. ##OK
-- 6. POST /dashboard: Crea un nuevo producto. ##OK
-- 5. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard. ##OK
+- 5. POST /dashboard: Crea un nuevo producto. ##OK
+- 6. GET /dashboard/:productId: Devuelve el detalle de un producto en el dashboard. ##OK
 - 7. GET /dashboard/:productId/edit: Devuelve el formulario para editar un producto. ##OK
 - 8. PUT /dashboard/:productId: Actualiza un producto. ##OK
 - 9. DELETE /dashboard/:productId/delete: Elimina un producto. ##OK
