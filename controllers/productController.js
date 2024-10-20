@@ -155,7 +155,7 @@ const showNewProduct = async (req, res) => {
                     <form action="/dashboard" method="POST">
 
                         <div>
-                            <h2>Crear Producto</h2>
+                            <h2 class="createH2">Crear Producto</h2>
                         </div>
                         
 
@@ -184,7 +184,6 @@ const showNewProduct = async (req, res) => {
                         </div>
                         
 
-                        
                         <div>
                             <label for="image">Imagen</label>
                             <input type="file" id="image" name="image">
@@ -211,7 +210,7 @@ const showNewProduct = async (req, res) => {
                         
 
                         <div>
-                            <button type="submit">Crear producto</button>
+                            <button type="submit" class="formCreateProduct" >Crear producto</button>
                         </div>
             
                     </form>
@@ -262,10 +261,10 @@ const showEditProduct = async (req, res) => {
             return res.status(404).json({ message: "Product not found" });
         }
         const html = baseHtml + getNavBar() + `
-                <form id="formEditProduct" action="/dashboard/${product._id}" method="PUT">
-
+                <form method="POST" id="formEditProduct" action="/dashboard/${product._id}" enctype="multipart/form-data">
+                
                     <div>
-                            <h2>EDITAR PRODUCTO</h2>
+                            <h2 class="editH2">EDITAR PRODUCTO</h2>
                         </div>
 
                     <div>
@@ -281,12 +280,6 @@ const showEditProduct = async (req, res) => {
                     
 
                     <div>
-                        <label for="image">Imagen</label>
-                        <input type="file" id="image" name="image" value="/public/assets/${product.image}">
-                    </div>
-                    
-
-                    <div>
                         <label for="category">Categoría</label>
                         <select name="category" class="categoryProduct" id="categoryProduct">
                             <option value="" disabled selected>Producto</option>
@@ -296,6 +289,13 @@ const showEditProduct = async (req, res) => {
                             <option value="gafas">Gafas</option>
                             <option value="casco">Casco</option>
                         </select>
+                    </div>
+
+
+                     <div>
+                        <label for="image">Imagen</label>
+                        <input type="file" id="image" name="image"
+                        src="${product.image}" value="${product.name}">
                     </div>
                     
 
@@ -314,12 +314,13 @@ const showEditProduct = async (req, res) => {
                     
                     <div>
                         <label for="price">Precio</label>
-                    <input type="number" id="price" name="price" value="${product.price}" required>
+                        <input type="number" id="price" name="price" value="${product.price}" required>
                     </div>
                     
 
                     <div>
                         <button type="submit">Actualizar producto</button>
+                        <button type="button" class="cancelButton" id="cancelButton">Cancelar</button>    
                     </div>
                     
                 </form>
@@ -338,7 +339,7 @@ const showEditProduct = async (req, res) => {
                     });
 
                     fetch("/dashboard/${product._id}", {
-                        method: 'PUT', // Cambia esto a PUT
+                        method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
                         },
@@ -358,9 +359,13 @@ const showEditProduct = async (req, res) => {
                         console.error('Error:', error);
                     });
                 });
+                document.getElementById('cancelButton').addEventListener('click', function() {
+                    window.history.back();
+                });
         </script>
         </html>
         `;
+        console.log(html)
         res.send(html);
     } catch (error) {
         console.error(error);
@@ -370,6 +375,8 @@ const showEditProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
+        console.log("Product ID:", req.params.productId);
+        console.log("Request body:", req.body);
         let { name, description, image, category, size, price } = req.body;
         console.log(req)
         image = '';

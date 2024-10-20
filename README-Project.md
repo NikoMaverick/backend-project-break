@@ -1,6 +1,6 @@
 
-# Project
-
+# Pr
+En este proyecto vamos a crear una tienda con productos
 # Creamos las carpetas y los archivos con la siguiente estructura:
 - index.js - (Este es el archivo principal donde iniciamos el servidor Express, importamos las rutas y las usamos.)
 - config/db.js - (Aqui añadimos la configuración para conectarnos a la BBDD de Mongo DB en Atlas)

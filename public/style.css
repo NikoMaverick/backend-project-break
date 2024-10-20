@@ -181,14 +181,14 @@ form{
     justify-content: start;
     align-items: end;
     flex-wrap: wrap;
-	width:300px;
+	width:400px;
 	padding:16px;
 	border-radius:10px;
 	margin:auto;
     margin-top: 100px;
 	background-color: blue;
     color: white;
-    height: 540px;
+    height: 800px;
     border-top-left-radius: 50px;
 	border-top-right-radius: 15px;
 	border-bottom-left-radius: 15px;
@@ -197,10 +197,15 @@ form{
     font-size: 20px;
 }
 
-form h2 {
-    margin-left: 35px;
+.createH2 {
+    margin-left: 65px;
     margin-bottom: 20px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+}
+
+.editH2 {
+    margin-left: 60px;
+    margin-bottom: 20px;
     font-size: 30px;
 }
 
@@ -211,7 +216,7 @@ form label{
 }
 
 form input[type="text"]{
-	width: 278px;
+	width: 378px;
 	padding:3px 10px;
 	border:1px solid #f6f6f6;
 	border-radius:3px;
@@ -221,7 +226,7 @@ form input[type="text"]{
 }
 
 form input[type="number"]{
-	width: 278px;
+	width: 378px;
 	padding:3px 10px;
 	border:1px solid #f6f6f6;
 	border-radius:3px;
@@ -231,7 +236,7 @@ form input[type="number"]{
 }
 
 form select[name="size"]{
-    width: 300px;
+    width: 400px;
 	padding:3px 10px;
 	border:1px solid #f6f6f6;
 	border-radius:3px;
@@ -241,7 +246,7 @@ form select[name="size"]{
 }
 
 form select[name="category"]{
-    width: 300px;
+    width: 400px;
 	padding:3px 10px;
 	border:1px solid #f6f6f6;
 	border-radius:3px;
@@ -250,28 +255,34 @@ form select[name="category"]{
 	display:inline-block;
 }
 
-form input[type="submit"]{
-	width:100%;
-	padding:8px 16px;
-	margin-top:32px;
-	border-radius:5px;
-	display:block;
-	color:#fff;
-} 
-
 form input[type="submit"]:hover{
 	cursor:pointer;
 }
 
 form button[type="submit"]{
-	width: 300px;
+	width: 400px;
+    height: 30px;
+    border-bottom-right-radius: none;
+}
+
+.formCreateProduct{
+	width: 400px;
     height: 30px;
     border-bottom-right-radius: 50px;
+    border: none;
+}
+
+.cancelButton{
+	width: 400px;
+    height: 30px;
+    margin-top:10px;
+    border-bottom-right-radius: 50px;
+    border: none;
 }
 
 
 textarea{
-	width: 114%;
+	width: 150%;
 	height:90px;
 	border:1px solid #f6f6f6;
 	border-radius:3px;
