@@ -13,8 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use('/', router);
 
-dbConnection();
-
-const PORT = process.env.PORT || 8010;
-app.listen(PORT, () => console.log(`La aplicación esta escuchando en el puerto http://localhost:${PORT}`));
-
+dbConnection()
+  .then(() => {
+    const PORT = process.env.PORT || 8010;
+    app.listen(PORT, () => console.log(`La aplicación está escuchando en el puerto http://localhost:${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Error de conexión a la base de datos:', err);
+  });
