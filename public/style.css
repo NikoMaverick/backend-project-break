@@ -1,0 +1,282 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* Inicio de ejercicio */
+
+
+body::-webkit-scrollbar{
+    background: white;
+    border-radius: 50px;
+    width: 5px;
+}
+
+body::-webkit-scrollbar-thumb{
+    background: #005faf;
+    border-radius: 50px;
+    width: 5px;
+}
+
+
+.headerTop{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    height: 80px;
+    
+}
+
+.nav-Product{
+    display: flex;
+    flex-direction: center;
+    align-items: end;
+    width: 100%;
+    background-color: blue;
+
+}
+
+
+.navProduct{
+    justify-content: center;
+    align-items: center;
+    gap: 90px;
+    display: flex;
+    height: 30px;
+    width: 100%; 
+}
+
+.navProduct a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+
+.homeBtn {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 30px;
+}
+
+.productCard {
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+}
+
+.productCard.id{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    background-color: transparent;
+    border-top-left-radius: 30px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 30px;
+    gap: 100px;
+}
+
+
+.product-card {
+    padding: 10px; 
+    border-radius: 8px; 
+    width: 250px; 
+    text-align: center; 
+}
+
+.product-card button{
+    margin-top: 15px;
+}
+
+.product-card img{
+    margin-left: 25px;
+}
+
+.product-card h2{
+    margin-top: 15px;
+}
+
+img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+.product-card{
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.product-card p{
+    margin-bottom: 10px
+}
+
+h2{
+    text-align: 50px;
+}
+
+.product-card button{
+    margin-bottom: 30px
+}
+
+
+
+
+/* Formulario */
+form{
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    flex-wrap: wrap;
+	width:300px;
+	padding:16px;
+	border-radius:10px;
+	margin:auto;
+    margin-top: 100px;
+	background-color: blue;
+    color: white;
+    height: 540px;
+    border-top-left-radius: 50px;
+	border-top-right-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 50px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+form h2 {
+    margin-left: 35px;
+    margin-bottom: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+}
+
+form label{
+	width:72px;
+	font-weight:bold;
+	display:inline-block;
+}
+
+form input[type="text"]{
+	width: 278px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+
+form input[type="number"]{
+	width: 278px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+
+form select[name="size"]{
+    width: 300px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+
+form select[name="category"]{
+    width: 300px;
+	padding:3px 10px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;
+	margin:8px 0;
+	display:inline-block;
+}
+
+form input[type="submit"]{
+	width:100%;
+	padding:8px 16px;
+	margin-top:32px;
+	border-radius:5px;
+	display:block;
+	color:#fff;
+} 
+
+form input[type="submit"]:hover{
+	cursor:pointer;
+}
+
+form button[type="submit"]{
+	width: 300px;
+    height: 30px;
+    border-bottom-right-radius: 50px;
+}
+
+
+textarea{
+	width: 114%;
+	height:90px;
+	border:1px solid #f6f6f6;
+	border-radius:3px;
+	background-color:#f6f6f6;			
+	margin:8px 0;
+}
+
+
