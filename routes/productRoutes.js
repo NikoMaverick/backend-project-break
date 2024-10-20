@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController')
 
+router.get('/', productController.showProducts); // 1.
 router.get('/products', productController.showProducts); // 1.
 router.get('/products/:productId', productController.showProductById); // 2.
 router.get('/products/category/:category', productController.showProductsByCategory); // 11.
