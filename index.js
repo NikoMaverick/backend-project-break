@@ -15,6 +15,6 @@ app.use('/', router);
 
 dbConnection();
 
-const PORT = 8010
+const PORT = process.env.PORT || 8010;
 app.listen(PORT, () => console.log(`La aplicación esta escuchando en el puerto http://localhost:${PORT}`));
 
