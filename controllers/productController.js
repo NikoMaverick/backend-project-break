@@ -20,7 +20,7 @@ function getNavBar(isDashboard) {
     <header class="headerTop">
         <div id="logoContainer">
             <a href="/" id="logoLink">
-                <img src="/public/assets/LogoMaverickShopWhite.png" alt="Logo" id="logo" style="width: 100px; height: auto;">
+                <img src="/public/assets/LogoMaverickShopBlue2.png" alt="Logo" id="logo" style="width: 100px; height: auto;">
             </a>
         </div>
     </header>
@@ -44,7 +44,7 @@ else {
     <header class="headerTop">
         <div id="logoContainer">
             <a href="/" id="logoLink">
-                <img src="/public/assets/LogoMaverickShopWhite.png" alt="Logo" id="logo" style="width: 100px; height: auto;">
+                <img src="/public/assets/LogoMaverickShopBlue2.png" alt="Logo" id="logo" style="width: 100px; height: auto;">
             </a>
         </div>
     </header> 

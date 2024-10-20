@@ -63,7 +63,7 @@ body::-webkit-scrollbar-thumb{
     display: flex;  
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, blue,blue ,rgb(184, 0, 0), blue);
+    background: white;
     height: 100px;
     
 }
@@ -73,7 +73,7 @@ body::-webkit-scrollbar-thumb{
     flex-direction: center;
     align-items: end;
     width: 100%;
-    background: blue;
+    background-color: #1b6096;
 }
 
 
@@ -95,7 +95,7 @@ body::-webkit-scrollbar-thumb{
 
 
 .homeBtn {
-    background-color: blue;
+    background-color: #1b6096;
     color: white;
     border-radius: 10px;
     width: 100px;
@@ -185,7 +185,7 @@ form{
 	border-radius:10px;
 	margin:auto;
     margin-top: 100px;
-	background-color: blue;
+	background-color: #1b6096;
     color: white;
     height: 800px;
     border-top-left-radius: 50px;
