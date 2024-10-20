@@ -9,7 +9,7 @@ const dbConnection = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("BBDD conectada correctamente");
     } catch (error) {
-        console.error('No se ha podido conectar con la base de datos', error);
+        console.error('No se ha podido conectar con la BBDD', error);
         throw error;
     }
 };
