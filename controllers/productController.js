@@ -18,7 +18,13 @@ function getNavBar(isDashboard) {
     if (isDashboard) {
         return `
     <header class="headerTop">
-        <nav class="nav-Product" id="nav-Product">
+        <div id="logoContainer">
+            <a href="/" id="logoLink">
+                <img src="/public/assets/LogoMaverickShopWhite.png" alt="Logo" id="logo" style="width: 100px; height: auto;">
+            </a>
+        </div>
+    </header>
+    <nav class="nav-Product" id="nav-Product">
             <ul class="navProduct" id="navProduct">
                 <li><a href="/dashboard">Home</a></li>
                 <li><a href="/dashboard/category/chaqueta">Chaquetas</a></li>
@@ -30,14 +36,19 @@ function getNavBar(isDashboard) {
                 <li><a href="/products">Cerrar Sesion</a></li>
             </ul>
         </nav>
-    </header>
     <main>
 `
 } 
 else {
     return `
     <header class="headerTop">
-        <nav class="nav-Product" id="nav-Product">
+        <div id="logoContainer">
+            <a href="/" id="logoLink">
+                <img src="/public/assets/LogoMaverickShopWhite.png" alt="Logo" id="logo" style="width: 100px; height: auto;">
+            </a>
+        </div>
+    </header> 
+    <nav class="nav-Product" id="nav-Product">
             <ul class="navProduct" id="navProduct">
                 <li><a href="/products">Home</a></li>
                 <li><a href="/products/category/chaqueta">Chaquetas</a></li>
@@ -48,7 +59,6 @@ else {
                 <li><a href="/dashboard/">Iniciar Sesión</a></li>
             </ul>
         </nav> 
-    </header> 
     <main>
 `}
 }

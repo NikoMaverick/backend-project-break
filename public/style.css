@@ -63,8 +63,8 @@ body::-webkit-scrollbar-thumb{
     display: flex;  
     justify-content: center;
     align-items: center;
-    background-color: red;
-    height: 80px;
+    background: linear-gradient(to bottom, blue,blue ,rgb(184, 0, 0), blue);
+    height: 100px;
     
 }
 
@@ -73,8 +73,7 @@ body::-webkit-scrollbar-thumb{
     flex-direction: center;
     align-items: end;
     width: 100%;
-    background-color: blue;
-
+    background: blue;
 }
 
 
