@@ -11,7 +11,6 @@ const baseHtml = `
     <title>Top Gun Store</title>
 </head>
 <body>
-
 `
 
 function getNavBar(isDashboard) {
